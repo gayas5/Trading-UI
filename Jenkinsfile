@@ -9,7 +9,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/betawins/Trading-UI.git'
+                git 'https://github.com/gayas5/Trading-UI.git'
             }
         }
 
