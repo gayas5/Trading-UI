@@ -2,21 +2,26 @@ pipeline {
     agent any
 
     tools {
-        nodejs 'node18'
+        nodejs 'node20'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/gayas5/Trading-UI.git'
+                git 'https://github.com/betawins/Trading-UI.git'
             }
         }
 
-        stage('Install dependencies') {
+        stage('Verify Tools') {
             steps {
                 sh 'node -v'
                 sh 'npm -v'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
                 sh 'npm install'
             }
         }
@@ -27,10 +32,13 @@ pipeline {
             }
         }
 
-        stage('Run with PM2') {
+        stage('Run App with PM2') {
             steps {
-                sh 'pm2 delete Trading-UI || true'
-                sh 'pm2 start npm --name Trading-UI -- start'
+                sh '''
+                    npm install -g pm2
+                    pm2 delete Trading-UI || true
+                    pm2 start npm --name Trading-UI -- start
+                '''
             }
         }
     }
