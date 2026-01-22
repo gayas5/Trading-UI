@@ -5,6 +5,10 @@ pipeline {
         nodejs 'node20'
     }
 
+    environment {
+        NODE_OPTIONS = "--openssl-legacy-provider"
+    }
+
     stages {
 
         stage('Checkout') {
